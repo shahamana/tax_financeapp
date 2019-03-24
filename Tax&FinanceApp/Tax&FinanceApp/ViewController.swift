@@ -27,26 +27,31 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
     }
     @IBOutlet weak var yearlyIncome: UITextField!
     @IBOutlet weak var taxAmount: UILabel!
-    var a:Double?
-    @IBAction func incomeIdentfier(_ sender: AnyObject) {
-        var text:String = sender.text ?? "";
-        let num = Double(text)
-        func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            if row == 0 {
-                a = Calc.taxRateCalc(status: "Single", income: num!)
-            }
-            if row == 1 {
-                a = Calc.taxRateCalc(status: "Head of Household", income: num!)
-            }
-            if row == 2 {
-                a = Calc.taxRateCalc(status: "Married Filing Jointly/Qualifyng Widow", income: num!)
-            }
-            if row == 3 {
-                a = Calc.taxRateCalc(status: "Married Filing Separately", income: num!)
-            }
-        }
-        
+    @IBAction func incomeIdentfier(_ sender: UITextField) {
+        updateText()
     }
+    
+    func updateText(){
+        print("update text")
+        var text = yearlyIncome.text ?? ""
+        let num = Double(text)
+        var incomeTax:Double?
+        incomeTax = Calc.taxRateCalc(status: maritalStatus(), income: num ?? 0)
+        let stringTax: String = "\(String(describing: incomeTax))"
+       taxAmount.text = stringTax
+    }
+    func maritalStatus() -> String{
+        var row:Int = Items.selectedRow(inComponent: 0)
+        print(row)
+        print(Options[row])
+        return Options[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow: Int, inComponent: Int) {
+        //taxAmount.text = stringTax
+        updateText()
+    }
+    //incomeIdentifier(_sender: UITextField)
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -77,22 +82,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
                 if income <= 9700 {
                     return 0.10
                 }
-                if income >= 9701 && income <= 39475 {
+                else if income >= 9701 && income <= 39475 {
                     return 0.12
                 }
-                if income >= 39476 && income <= 84200 {
+                else if income >= 39476 && income <= 84200 {
                     return 0.22
                 }
-                if income >= 84201 && income <= 160725 {
+                else if income >= 84201 && income <= 160725 {
                     return 0.24
                 }
-                if income >= 160726 && income <= 204100 {
+                else if income >= 160726 && income <= 204100 {
                     return 0.32
                 }
-                if income >= 204101 && income <= 510300 {
+                else if income >= 204101 && income <= 510300 {
                     return 0.35
                 }
-                if income >= 510301 {
+                else if income >= 510301 {
                     return 0.37
                 }
             }
@@ -100,45 +105,45 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
                 if income <= 13850 {
                     return 0.10
                 }
-                if income >= 13851 && income <= 52850 {
+                else if income >= 13851 && income <= 52850 {
                     return 0.12
                 }
-                if income >= 52851 && income <= 84200 {
+                else if income >= 52851 && income <= 84200 {
                     return 0.22
                 }
-                if income >= 84201 && income <= 160700 {
+                else if income >= 84201 && income <= 160700 {
                     return 0.24
                 }
-                if income >= 160701 && income <= 204100 {
+                else if income >= 160701 && income <= 204100 {
                     return 0.32
                 }
-                if income >= 204101 && income <= 510300 {
+                else if income >= 204101 && income <= 510300 {
                     return 0.35
                 }
-                if income >= 510301 {
+                else if income >= 510301 {
                     return 0.37
                 }
             }
             if status == "Married Filing Separately" {
                 if income <= 9700 {
-                    return 10
+                    return 0.10
                 }
-                if income >= 9701 && income <= 39475 {
+                else if income >= 9701 && income <= 39475 {
                     return 0.12
                 }
-                if income >= 39476 && income <= 84200 {
+                else if income >= 39476 && income <= 84200 {
                     return 0.22
                 }
-                if income >= 84201 && income <= 160725 {
+                else if income >= 84201 && income <= 160725 {
                     return 0.24
                 }
-                if income >= 160726 && income <= 204100 {
+                else if income >= 160726 && income <= 204100 {
                     return 0.32
                 }
-                if income >= 204101 && income <= 306175 {
+                else if income >= 204101 && income <= 306175 {
                     return 0.35
                 }
-                if income >= 306176 {
+                else if income >= 306176 {
                     return 0.37
                 }
             }
@@ -146,22 +151,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
                 if income <= 19400 {
                     return 0.10
                 }
-                if income >= 19401 && income <= 78950 {
+                else if income >= 19401 && income <= 78950 {
                     return 0.12
                 }
-                if income >= 78951 && income <= 168400 {
+                else if income >= 78951 && income <= 168400 {
                     return 0.22
                 }
-                if income >= 168401 && income <= 321450 {
+                else if income >= 168401 && income <= 321450 {
                     return 0.24
                 }
-                if income >= 321451 && income <= 408200 {
+                else if income >= 321451 && income <= 408200 {
                     return 0.32
                 }
-                if income >= 408201 && income <= 612350 {
+                else if income >= 408201 && income <= 612350 {
                     return 0.35
                 }
-                if income >= 612351 {
+                else if income >= 612351 {
                     return 0.37
                 }
             }
